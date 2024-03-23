@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--Nome: Anna Julia de Moura Fontes 3I
+Nome: Gabriela Viana Lisboa-->
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantidade de Números Primos</title>
+</head>
+<body>
+
+
+    <h1>Quantidade de Números Primos</h1>
+
+
+<script>
+function primo(num) {
+    if (num <= 1) {
+        return false;
+    }
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+function mostrarQuantidadePrimos() {
+    const quantidade = parseInt(document.getElementById("quantidadeInput").value);
+    const canvas = document.getElementById('meuCanvas');
+
+    if (canvas.getContext){
+        const ctx = canvas.getContext('2d');
+        const maxWidth = 300;
+        const lineHeight = 35;
+        const x = (canvas.width - maxWidth) / 2;
+        let y = 60;
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        grad.addColorStop(0, "rgb(255, 0, 0)");
+        grad.addColorStop(0.5, "rgb(255, 255, 255)");
+        grad.addColorStop(1, "rgb(0, 0, 0)");
+
+        ctx.fillStyle = "rgb(255, 255, 255)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = "20px Arial";
+        ctx.fillStyle = grad;
+
+        let contador = 0;
+        let num = 2;
+
+        while (contador < quantidade) {
+            if (primo(num)) {
+                ctx.fillText(num.toString(), x, y);
+                contador++;
+                y += lineHeight;
+            }
+            num++;
+        }
+    }
+}
+</script>
+<label style="font-size: 20px;">Quantidade:</label>
+<input type="number" id="quantidadeInput" min="1" step="1" autofocus><br>
+<button onclick="mostrarQuantidadePrimos()">Mostrar Números Primos</button><br><br>
+<canvas id="meuCanvas" width="400" height="400" style="border:1px solid #000000; background-color: white;"></canvas>
+
+</body>
+</html>
